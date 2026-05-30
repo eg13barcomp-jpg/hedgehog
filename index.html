@@ -8,157 +8,271 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #1e3b2e;
-      background-image: radial-gradient(circle at 20% 30%, #2d5a3f, #1a2f22);
-      color: #f0e6c5;
+      background: #1e3b2f; /* лесной тёмно-зелёный */
+      background-image: radial-gradient(ellipse at 50% 0%, #2d5a3a 0%, #1a2e1f 60%);
+      color: #eee;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       user-select: none;
       transition: background 0.5s, color 0.5s;
-      position: relative;
-      overflow-x: hidden;
-    }
-    /* Лесные листочки (анимация) */
-    body::before {
-      content: "🍂🌿🍃";
-      position: absolute;
-      top: -30px;
-      left: -20px;
-      font-size: 2rem;
-      opacity: 0.1;
-      animation: floatLeaves 20s linear infinite;
-      white-space: pre;
-      pointer-events: none;
-    }
-    @keyframes floatLeaves {
-      0% { transform: translateY(0) rotate(0deg); }
-      100% { transform: translateY(100vh) rotate(360deg); }
     }
     body.million {
-      background: linear-gradient(135deg, #1e3c2f, #2a5a3a, #4a3a1a);
-      background-image: radial-gradient(circle at 50% 50%, #f7e05e20, #1e3b2e);
+      background: #0f3b1a; /* яркий изумрудный */
+      background-image: radial-gradient(circle at 20% 30%, #5a9e4b, #1a4a1f);
     }
-    body.million::before {
-      content: "🍂🌿🍃✨🦔";
-      opacity: 0.25;
-      animation-duration: 10s;
-    }
-
     #app {
       width: 100%;
       max-width: 520px;
-      background: #2d4a32;
-      background-image: linear-gradient(145deg, #3b5e3b, #1f3a22);
-      border-radius: 30px;
+      background: #3b2e24; /* тёмное дерево */
+      background-image: linear-gradient(145deg, #4a382a 0%, #2e2219 100%);
+      border: 3px solid #5e4b34;
+      border-radius: 20px;
       padding: 20px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.6), inset 0 0 20px #5a7a4b;
-      transition: background 0.5s, box-shadow 0.5s;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6), inset 0 0 20px rgba(255,255,200,0.1);
+      transition: background 0.5s, border-color 0.5s;
       position: relative;
-      border: 2px solid #6b8c5c;
     }
     body.million #app {
-      background: linear-gradient(145deg, #4a6b3a, #2e4a1f);
-      box-shadow: 0 0 40px #ffd700, inset 0 0 30px #f7e05e;
-      border-color: #ffb347;
+      background: #2e4a2b;
+      background-image: linear-gradient(145deg, #3e6238 0%, #1f3a1b 100%);
+      border-color: #7a9f5a;
+      box-shadow: 0 0 40px #7a9f5a, inset 0 0 30px rgba(255,255,200,0.2);
     }
     .screen { display: block; }
     .hidden { display: none !important; }
 
-    h1, h2, h3 { color: #f7e05e; text-align: center; margin-bottom: 10px; text-shadow: 2px 2px 0 #2d4a32; }
-    body.million h1, body.million h2, body.million h3 { color: #ffd700; text-shadow: 0 0 10px #ffb347; }
+    h1, h2, h3 { color: #f5e6c8; text-align: center; margin-bottom: 10px; text-shadow: 1px 1px 2px #000; }
+    body.million h1, body.million h2, body.million h3 { color: #ffd700; }
 
     .btn {
-      background: #5a7a4b;
-      border: none;
-      color: #f0e6c5;
+      background: #5e4b34;
+      border: 2px solid #7a6542;
+      color: #f0e6d2;
       padding: 10px 18px;
-      border-radius: 12px;
+      border-radius: 10px;
       cursor: pointer;
       font-size: 1rem;
       transition: 0.2s;
       margin: 5px;
       font-weight: bold;
-      box-shadow: 0 4px 0 #2d4a32;
-      border: 1px solid #8baa76;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     }
-    .btn:hover { background: #6b8c5c; transform: translateY(-2px); box-shadow: 0 6px 0 #2d4a32; }
-    .btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #2d4a32; }
-    .btn.primary { background: #e6a817; color: #1e3b2e; box-shadow: 0 4px 0 #b07d14; border-color: #f7c948; }
-    .btn.primary:hover { background: #f7c948; }
-    .btn.success { background: #4caf50; color: white; box-shadow: 0 4px 0 #2e7d32; }
-    .btn.danger { background: #c0392b; box-shadow: 0 4px 0 #7b241c; }
-    .btn.warning { background: #d35400; box-shadow: 0 4px 0 #a04000; }
+    .btn:hover { background: #7a6542; border-color: #ab8e5a; transform: translateY(-1px); }
+    .btn:active { transform: scale(0.96); }
+    .btn.primary { background: #d4a44a; border-color: #f0c674; color: #1a1e2b; }
+    .btn.primary:hover { background: #e0b85c; }
+    .btn.success { background: #4c7a4a; border-color: #6b9e5a; color: #fff; }
+    .btn.success:hover { background: #5a8e58; }
+    .btn.danger { background: #a13e3e; border-color: #c05555; }
+    .btn.danger:hover { background: #b64b4b; }
+    .btn.warning { background: #c06a20; border-color: #e08a30; }
+    .btn.warning:hover { background: #d97a28; }
 
-    .input-group { margin: 10px 0; display: flex; flex-direction: column; gap: 5px; }
-    input, select {
+    .input-group {
+      margin: 10px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    input {
       padding: 10px;
-      border-radius: 12px;
-      border: 1px solid #6b8c5c;
-      background: #1e3b2e;
-      color: #f0e6c5;
+      border-radius: 10px;
+      border: 1px solid #5e4b34;
+      background: #1e1a15;
+      color: #eee;
       font-size: 1rem;
       outline: none;
     }
     .flex-row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; align-items: center; }
 
-    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-    .balance { font-size: 1.5rem; font-weight: bold; color: #f7e05e; }
-    .nickname { color: #c7b58a; }
-    .creator .nickname { color: #ffd700 !important; font-weight: bold; }
-    .progress-container { background: #1e3b2e; border-radius: 20px; height: 20px; margin: 10px 0; overflow: hidden; border: 1px solid #5a7a4b; }
-    .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #6b8c5c, #a4c07a); transition: width 0.3s; border-radius: 20px; }
-    body.million .progress-fill { background: linear-gradient(90deg, #ffd700, #ffec8b); }
-
-    .shelves { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; background: #1e3b2e; padding: 10px; border-radius: 15px; margin-bottom: 15px; }
-    .shelf-slot { aspect-ratio: 1; background: #2d4a32; border-radius: 12px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 2rem; border: 2px solid #5a7a4b; transition: 0.1s; }
-    .shelf-slot.occupied { border-color: #f7e05e; background: #3b5e3b; }
-    .shelf-slot:hover { background: #4a6b3a; }
-
-    .warehouse { background: #1e3b2e; border-radius: 15px; padding: 10px; margin-bottom: 15px; }
-    .warehouse-list { display: flex; flex-wrap: wrap; gap: 8px; max-height: 150px; overflow-y: auto; }
-    .warehouse-item { background: #2d4a32; border-radius: 10px; padding: 8px 12px; cursor: pointer; display: flex; align-items: center; gap: 5px; border: 2px solid transparent; font-size: 0.9rem; }
-    .warehouse-item:hover { border-color: #f7e05e; background: #3b5e3b; }
-
-    .shop-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    .shop-card { background: #1e3b2e; border-radius: 12px; padding: 8px; text-align: center; font-size: 0.85rem; border: 1px solid #5a7a4b; }
-    .shop-card .emoji { font-size: 1.8rem; }
-    .boosters-panel { margin-top: 15px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-    .timer-row { display: flex; justify-content: space-between; font-size: 0.85rem; margin: 5px 0; color: #c7b58a; }
-    .timer-row span { color: #f7e05e; }
-    .shop-panel { background: #1e3b2e; border-radius: 15px; padding: 15px; margin-top: 15px; border: 1px solid #5a7a4b; }
-    .upgrade-card { background: #2d4a32; border-radius: 10px; padding: 10px; margin: 8px 0; display: flex; justify-content: space-between; align-items: center; }
-    .upgrade-card.done { opacity: 0.6; }
-    .promo-area { position: fixed; bottom: 20px; right: 20px; background: #2d4a32; padding: 10px; border-radius: 10px; display: flex; gap: 5px; align-items: center; opacity: 0.9; z-index: 10; border: 1px solid #5a7a4b; }
-    .promo-area input { width: 100px; }
-
-    /* Мини-игры */
-    .mini-game-panel {
-      background: #1e3b2e;
-      border: 2px solid #f7e05e;
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .balance { font-size: 1.5rem; font-weight: bold; color: #f0c674; }
+    .nickname { color: #b48ead; }
+    .creator .nickname { color: gold !important; font-weight: bold; }
+    .progress-container {
+      background: #1e1a15;
       border-radius: 20px;
-      padding: 15px;
-      margin-top: 20px;
+      height: 20px;
+      margin: 10px 0;
+      overflow: hidden;
+      border: 1px solid #5e4b34;
     }
-    .mini-game-field {
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #6b8c4a, #a4c639);
+      transition: width 0.3s;
+      border-radius: 20px;
+    }
+    body.million .progress-fill {
+      background: linear-gradient(90deg, gold, #ffd700);
+    }
+
+    .shelves {
       display: grid;
-      gap: 4px;
-      margin: 10px auto;
-      justify-content: center;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      background: #1e1a15;
+      padding: 10px;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      border: 1px solid #5e4b34;
     }
-    .mini-game-cell {
-      width: 30px;
-      height: 30px;
-      background: #2d4a32;
-      border-radius: 6px;
+    .shelf-slot {
+      aspect-ratio: 1;
+      background: #2e241a;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
-      border: 1px solid #5a7a4b;
+      cursor: pointer;
+      font-size: 2rem;
+      transition: 0.1s;
+      border: 2px solid #5e4b34;
+      position: relative;
     }
-    .timer-bar { background: #c0392b; height: 10px; border-radius: 5px; transition: width 0.1s; }
+    .shelf-slot.occupied { border-color: #8b7a5a; background: #3e3122; }
+    .shelf-slot:hover { background: #4a3a28; }
+
+    .warehouse {
+      background: #1e1a15;
+      border-radius: 15px;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #5e4b34;
+    }
+    .warehouse-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      max-height: 150px;
+      overflow-y: auto;
+    }
+    .warehouse-item {
+      background: #2e241a;
+      border-radius: 10px;
+      padding: 8px 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      border: 2px solid #5e4b34;
+      transition: 0.1s;
+      font-size: 0.9rem;
+    }
+    .warehouse-item:hover { border-color: #8b7a5a; background: #3e3122; }
+
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .shop-card {
+      background: #1e1a15;
+      border-radius: 12px;
+      padding: 8px;
+      text-align: center;
+      font-size: 0.85rem;
+      transition: 0.2s;
+      border: 1px solid #5e4b34;
+    }
+    .shop-card .emoji { font-size: 1.8rem; }
+    .boosters-panel {
+      margin-top: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .timer-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin: 5px 0;
+      color: #ccc;
+    }
+    .timer-row span { color: #ffb86c; }
+    .shop-panel {
+      background: #1e1a15;
+      border-radius: 15px;
+      padding: 15px;
+      margin-top: 15px;
+      border: 1px solid #5e4b34;
+    }
+    .upgrade-card {
+      background: #2e241a;
+      border-radius: 10px;
+      padding: 10px;
+      margin: 8px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #5e4b34;
+    }
+    .upgrade-card.done { opacity: 0.6; }
+
+    /* Мини-игры модальное окно */
+    .modal {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+    .modal-content {
+      background: #3b2e24;
+      background-image: linear-gradient(145deg, #4a382a 0%, #2e2219 100%);
+      border: 2px solid #7a6542;
+      border-radius: 20px;
+      padding: 20px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      color: #f0e6d2;
+    }
+    body.million .modal-content {
+      background: #2e4a2b;
+      background-image: linear-gradient(145deg, #3e6238 0%, #1f3a1b 100%);
+      border-color: #7a9f5a;
+    }
+    .minigame-grid {
+      display: grid;
+      gap: 4px;
+      margin: 15px auto;
+      justify-content: center;
+    }
+    .minigame-cell {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .red-dot { background: #e63946; }
+    .empty-dot { background: transparent; }
+
+    .promo-area {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #252a36;
+      padding: 10px;
+      border-radius: 10px;
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      opacity: 0.9;
+      z-index: 10;
+    }
+    .promo-area input { width: 100px; }
   </style>
 </head>
 <body>
@@ -180,7 +294,7 @@
         <input type="password" id="auth-password" placeholder="Придумай пароль">
       </div>
       <button id="auth-submit" class="btn primary">Продолжить</button>
-      <p id="auth-error" style="color: #c0392b; margin-top: 5px;"></p>
+      <p id="auth-error" style="color: #d94f4f; margin-top: 5px;"></p>
     </div>
   </div>
 
@@ -217,40 +331,40 @@
     <div class="boosters-panel" id="boosters-container"></div>
 
     <div class="flex-row" style="margin-top: 15px;">
+      <button id="btn-minigames" class="btn success">🎮 Мини-игры</button>
       <button id="btn-shop-view" class="btn warning">🏬 Вид магазина</button>
-      <button id="btn-minigame" class="btn primary">🎮 Мини-игры</button>
       <button id="btn-reset" class="btn danger">🔄 Сброс</button>
       <button id="btn-logout" class="btn">🚪 Выйти</button>
     </div>
 
-    <!-- Панель улучшений магазина -->
+    <!-- Панель улучшений магазина (скрыта) -->
     <div id="shop-upgrade-panel" class="shop-panel hidden">
       <h3>🏬 Улучшения магазина</h3>
       <div id="upgrades-list"></div>
       <button id="btn-close-shop" class="btn">Закрыть</button>
     </div>
+  </div>
+</div>
 
-    <!-- Панель мини-игр -->
-    <div id="mini-game-panel" class="mini-game-panel hidden">
-      <h3>🎮 Мини-игры</h3>
-      <div id="mini-game-select">
-        <div class="flex-row">
-          <button id="select-arithmetic" class="btn">Арифметика</button>
-          <button id="select-counter" class="btn">Считалка</button>
-        </div>
-        <div class="input-group" style="margin-top:10px;">
-          <label>Сложность</label>
-          <select id="difficulty-select">
-            <option value="easy">Лёгкий</option>
-            <option value="medium">Средний</option>
-            <option value="hard">Сложный</option>
-          </select>
-        </div>
-        <button id="start-mini-game" class="btn primary">Начать игру</button>
-        <div id="mini-game-area" class="hidden"></div>
-        <p id="mini-game-result" style="text-align:center; margin-top:10px; font-weight:bold;"></p>
-        <button id="close-mini-game" class="btn">Закрыть</button>
+<!-- Модальное окно мини-игр -->
+<div id="minigame-modal" class="modal hidden">
+  <div class="modal-content">
+    <h3 id="minigame-title">🎮 Мини-игры</h3>
+    <div id="minigame-menu">
+      <button class="btn" data-game="arithmetic">🧮 Арифметика</button>
+      <button class="btn" data-game="counter">🔴 Считалка</button>
+      <button class="btn" id="btn-close-modal">Закрыть</button>
+    </div>
+    <div id="minigame-area" class="hidden">
+      <p id="minigame-desc"></p>
+      <div id="minigame-content"></div>
+      <div class="input-group" id="minigame-input-area">
+        <input type="text" id="minigame-answer" placeholder="Ваш ответ">
+        <button class="btn primary" id="minigame-submit">Ответить</button>
       </div>
+      <p id="minigame-timer">⏱ <span id="minigame-time-left">0</span> сек</p>
+      <p id="minigame-feedback" style="color:#ffb86c;"></p>
+      <button class="btn danger hidden" id="minigame-exit">Выйти</button>
     </div>
   </div>
 </div>
@@ -296,21 +410,18 @@
     { id: 'toaster', name: 'Тостер', emoji: '🔥', price: 135100, income: 3800, interval: 2, fixedInterval: false, unlocked: true },
     { id: 'kettle', name: 'Чайник', emoji: '☕', price: 177100, income: 5000, interval: 2, fixedInterval: false, unlocked: true },
     { id: 'yh', name: 'Ых', emoji: '🌀', price: 66666, income: 0.1, interval: 2, fixedInterval: false, unlocked: true },
-    // Новые товары (доступны после улучшения "Новые товары")
     { id: 'car', name: 'Машина', emoji: '🚗', price: 1000000, income: 20000, interval: 2, fixedInterval: false, unlocked: false },
     { id: 'mine', name: 'Золотая шахта', emoji: '⛏️', price: 1500000, income: 100000, interval: 4, fixedInterval: true, unlocked: false },
     { id: 'oil', name: 'Нефтяная вышка', emoji: '🛢️', price: 3000000, income: 60000, interval: 1, fixedInterval: true, unlocked: false },
     { id: 'penthouse', name: 'Пентхаус', emoji: '🏙️', price: 10000000, income: 200000, interval: 1, fixedInterval: true, unlocked: false }
   ];
 
-  // ---------- БУСТЕРЫ ----------
   const boosters = [
     { id: 'sale', name: '🔥 Особая акция', desc: 'Удваивает доход на 60 сек', price: 30000, type: 'temp', duration: 60 },
     { id: 'slot', name: '📢 Распродажа', desc: '+1 слот на полке (макс. 7)', price: 20500, type: 'permanent', max: 1 },
     { id: 'discount', name: '🎯 Скидка 10%', desc: '+10% к доходу навсегда', price: 30000, type: 'permanent', max: 1 }
   ];
 
-  // ---------- УЛУЧШЕНИЯ МАГАЗИНА ----------
   const shopUpgrades = [
     { level: 1, name: 'Повесить плакаты', cost: 100000, desc: 'Товары дают доход каждые 1.5 сек', effect: () => { updateBaseInterval(1.5); } },
     { level: 2, name: 'Расширить помещение', cost: 200000, desc: '+1 слот на полке', effect: () => { gameState.maxShelves += 1; while(gameState.shelves.length < gameState.maxShelves) gameState.shelves.push(null); } },
@@ -338,6 +449,9 @@
   let incomeInterval = null;
   let rentInterval = null;
   let secondTimer = null;
+  let minigameActive = false;
+  let minigameTimeout = null;
+  let minigameTimerInterval = null;
 
   // ---------- ЛОКАЛЬНОЕ ХРАНИЛИЩЕ ----------
   function saveToStorage() {
@@ -376,21 +490,126 @@
   function updateBaseInterval(newInterval) {
     gameState.baseInterval = newInterval;
     shopItems.forEach(item => {
-      if (!item.fixedInterval && item.unlocked) item.interval = newInterval;
+      if (!item.fixedInterval && item.unlocked) {
+        item.interval = newInterval;
+      }
     });
   }
 
   function unlockEliteItems() {
     shopItems.forEach(item => {
-      if (['car','mine','oil','penthouse'].includes(item.id)) item.unlocked = true;
+      if (['car','mine','oil','penthouse'].includes(item.id)) {
+        item.unlocked = true;
+      }
     });
   }
 
   // ---------- ОТОБРАЖЕНИЕ ----------
-  function renderShelves() { /* ... без изменений ... */ }
-  function renderWarehouse() { /* ... без изменений ... */ }
-  function renderShop() { /* ... без изменений ... */ }
-  function renderBoosters() { /* ... без изменений ... */ }
+  function renderShelves() {
+    const container = document.getElementById('shelves-container');
+    if (!container) return;
+    container.innerHTML = '';
+    for (let i = 0; i < gameState.maxShelves; i++) {
+      const slot = document.createElement('div');
+      slot.className = 'shelf-slot';
+      const itemId = gameState.shelves[i];
+      if (itemId) {
+        const item = shopItems.find(it => it.id === itemId);
+        slot.classList.add('occupied');
+        slot.innerHTML = item ? item.emoji : '❓';
+        slot.title = item ? item.name : '';
+      } else {
+        slot.innerHTML = '+';
+      }
+      slot.addEventListener('click', () => {
+        if (itemId) {
+          gameState.shelves[i] = null;
+          gameState.warehouse.push(itemId);
+          saveToStorage();
+          renderAll();
+          playBeep(400, 0.05);
+        }
+      });
+      container.appendChild(slot);
+    }
+    document.getElementById('shelf-count').textContent = gameState.maxShelves;
+  }
+
+  function renderWarehouse() {
+    const container = document.getElementById('warehouse-container');
+    if (!container) return;
+    container.innerHTML = '';
+    if (gameState.warehouse.length === 0) {
+      container.innerHTML = '<span style="color:#888">Пусто</span>';
+      return;
+    }
+    gameState.warehouse.forEach((itemId, index) => {
+      const item = shopItems.find(it => it.id === itemId);
+      const div = document.createElement('div');
+      div.className = 'warehouse-item';
+      div.innerHTML = `${item?.emoji || '📦'} ${item?.name || itemId}`;
+      div.addEventListener('click', () => {
+        const freeSlot = gameState.shelves.findIndex(s => s === null);
+        if (freeSlot !== -1) {
+          gameState.shelves[freeSlot] = itemId;
+          gameState.warehouse.splice(index, 1);
+          gameState.shelvesTimers[freeSlot] = Date.now();
+          saveToStorage();
+          renderAll();
+          playBeep(600, 0.08);
+        }
+      });
+      container.appendChild(div);
+    });
+  }
+
+  function renderShop() {
+    const container = document.getElementById('shop-container');
+    if (!container) return;
+    container.innerHTML = '';
+    shopItems.forEach(item => {
+      if (!item.unlocked) return;
+      const card = document.createElement('div');
+      card.className = 'shop-card';
+      let intervalText = item.fixedInterval ? ` (каждые ${item.interval}с)` : ` (каждые ${gameState.baseInterval}с)`;
+      card.innerHTML = `
+        <div class="emoji">${item.emoji}</div>
+        <div><strong>${item.name}</strong></div>
+        <div>💰 ${item.price.toLocaleString()} ₽</div>
+        <div>📈 +${item.income} ₽${intervalText}</div>
+        <button class="btn buy-btn" data-id="${item.id}">Купить</button>
+      `;
+      container.appendChild(card);
+    });
+    document.querySelectorAll('.buy-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const id = e.target.dataset.id;
+        buyItem(id);
+      });
+    });
+  }
+
+  function renderBoosters() {
+    const container = document.getElementById('boosters-container');
+    if (!container) return;
+    container.innerHTML = '';
+    boosters.forEach(b => {
+      const btn = document.createElement('button');
+      btn.className = 'btn';
+      let disabled = false;
+      if (b.type === 'permanent' && gameState.boostersPurchased.includes(b.id)) {
+        btn.classList.add('success');
+        btn.textContent = `${b.name} ✅`;
+        disabled = true;
+      } else {
+        btn.textContent = `${b.name} (${b.price.toLocaleString()}₽)`;
+      }
+      btn.title = b.desc;
+      btn.addEventListener('click', () => { if (!disabled) buyBooster(b.id); });
+      container.appendChild(btn);
+    });
+  }
+
   function updateBalanceDisplay() {
     document.getElementById('balance-display').textContent = Math.floor(gameState.balance).toLocaleString() + ' ₽';
     const progress = Math.min(100, (gameState.balance / 1000000) * 100);
@@ -401,6 +620,7 @@
       document.body.classList.remove('million');
     }
   }
+
   function renderAll() {
     renderShelves();
     renderWarehouse();
@@ -411,243 +631,597 @@
     document.getElementById('creator-badge').textContent = gameState.isCreator ? '⭐' : '';
   }
 
-  // ... (все функции рендера идентичны предыдущей версии, для экономии места они здесь опущены, но в реальном файле их нужно вставить. Я укажу их в ответе сокращённо, но в полном коде они будут.)
-
-  // В полном ответе я полностью пропишу все функции рендера. Здесь для краткости пропущу, но в финальном HTML они будут.
-
   // ---------- ТАЙМЕРЫ И ДОХОД ----------
-  function startGameLoop() { /* ... */ }
-  function applyRent() { /* ... */ }
+  function startGameLoop() {
+    if (incomeInterval) clearInterval(incomeInterval);
+    if (rentInterval) clearInterval(rentInterval);
+    if (secondTimer) clearInterval(secondTimer);
 
-  // ---------- ПОКУПКИ И УЛУЧШЕНИЯ ----------
-  function buyItem(itemId) { /* ... */ }
-  function buyBooster(boosterId) { /* ... */ }
-  function renderShopUpgrades() { /* ... */ }
-  function buyUpgrade(level) { /* ... */ }
+    incomeInterval = setInterval(() => {
+      const now = Date.now();
+      for (let i = 0; i < gameState.shelves.length; i++) {
+        const itemId = gameState.shelves[i];
+        if (!itemId) continue;
+        const item = shopItems.find(it => it.id === itemId);
+        if (!item) continue;
+        const intervalMs = item.interval * 1000;
+        if (now - gameState.shelvesTimers[i] >= intervalMs) {
+          const income = item.income * (1 + gameState.permanentBonus) * gameState.incomeMultiplier;
+          gameState.balance += income;
+          gameState.shelvesTimers[i] = now;
+        }
+      }
+      updateBalanceDisplay();
+      saveToStorage();
+    }, 200);
 
-  // ---------- АВТОРИЗАЦИЯ ----------
-  // ... (без изменений)
-
-  // ---------- МИНИ-ИГРЫ ----------
-  const miniGames = {
-    currentGame: null,
-    timer: null,
-    timeLeft: 0,
-    correctAnswer: null,
-    examples: [],
-    currentExampleIndex: 0,
-    score: 0
-  };
-
-  // Арифметика
-  function generateArithmetic(difficulty) {
-    const examples = [];
-    for (let i = 0; i < 5; i++) {
-      let a, b, op, answer;
-      if (difficulty === 'easy') {
-        a = Math.floor(Math.random() * 9) + 1;
-        b = Math.floor(Math.random() * 9) + 1;
-        op = Math.random() < 0.5 ? '+' : '-';
-        answer = op === '+' ? a + b : a - b;
-      } else if (difficulty === 'medium') {
-        op = Math.random() < 0.5 ? '*' : '/';
-        if (op === '*') {
-          a = Math.floor(Math.random() * 9) + 1;
-          b = Math.floor(Math.random() * 9) + 1;
-          answer = a * b;
+    let rentLeft = 60;
+    document.getElementById('rent-timer').textContent = rentLeft;
+    secondTimer = setInterval(() => {
+      rentLeft--;
+      document.getElementById('rent-timer').textContent = rentLeft;
+      if (rentLeft <= 0) {
+        applyRent();
+        rentLeft = 60;
+      }
+      if (gameState.boosterEndTime > 0) {
+        const left = Math.max(0, Math.ceil((gameState.boosterEndTime - Date.now()) / 1000));
+        document.getElementById('booster-left').textContent = left;
+        if (left <= 0) {
+          gameState.incomeMultiplier = 1;
+          gameState.boosterEndTime = 0;
+          document.getElementById('booster-timer').classList.add('hidden');
+          saveToStorage();
         } else {
-          b = Math.floor(Math.random() * 9) + 1;
-          answer = Math.floor(Math.random() * 9) + 1;
-          a = b * answer;
+          document.getElementById('booster-timer').classList.remove('hidden');
         }
       } else {
-        a = Math.floor(Math.random() * 900) + 100;
-        b = Math.floor(Math.random() * 900) + 100;
-        op = Math.random() < 0.5 ? '+' : '-';
-        answer = op === '+' ? a + b : a - b;
-      }
-      examples.push({ a, b, op, answer });
-    }
-    return examples;
-  }
-
-  function startArithmetic(difficulty) {
-    const config = { easy: { time: 16, reward: 1000 }, medium: { time: 20, reward: 2100 }, hard: { time: 25, reward: 5200 } };
-    const { time, reward } = config[difficulty];
-    miniGames.currentGame = 'arithmetic';
-    miniGames.examples = generateArithmetic(difficulty);
-    miniGames.currentExampleIndex = 0;
-    miniGames.score = 0;
-    miniGames.timeLeft = time;
-    miniGames.reward = reward;
-    showArithmeticProblem();
-    startMiniGameTimer(time, () => finishArithmetic(false));
-  }
-
-  function showArithmeticProblem() {
-    const area = document.getElementById('mini-game-area');
-    const ex = miniGames.examples[miniGames.currentExampleIndex];
-    area.innerHTML = `
-      <div style="text-align:center; font-size:1.5rem; margin:10px;">${ex.a} ${ex.op} ${ex.b} = ?</div>
-      <input type="number" id="arithmetic-answer" placeholder="Ответ" style="width:100px; margin:0 auto; display:block;">
-      <button id="submit-arithmetic" class="btn primary" style="display:block; margin:10px auto;">Ответить</button>
-      <p>Пример ${miniGames.currentExampleIndex + 1} из 5</p>
-    `;
-    document.getElementById('submit-arithmetic').addEventListener('click', checkArithmeticAnswer);
-  }
-
-  function checkArithmeticAnswer() {
-    const input = document.getElementById('arithmetic-answer');
-    const userAnswer = parseInt(input.value);
-    if (isNaN(userAnswer)) return;
-    if (userAnswer === miniGames.examples[miniGames.currentExampleIndex].answer) {
-      miniGames.score++;
-      playBeep(1000, 0.05);
-    } else {
-      playBeep(200, 0.15);
-    }
-    miniGames.currentExampleIndex++;
-    if (miniGames.currentExampleIndex < 5) {
-      showArithmeticProblem();
-    } else {
-      finishArithmetic(true);
-    }
-  }
-
-  function finishArithmetic(completed) {
-    clearInterval(miniGames.timer);
-    const area = document.getElementById('mini-game-area');
-    if (completed && miniGames.score >= 5) {
-      gameState.balance += miniGames.reward;
-      saveToStorage();
-      renderAll();
-      area.innerHTML = `<p style="color:#4caf50;">🎉 Поздравляем! Вы заработали ${miniGames.reward} ₽</p>`;
-    } else {
-      area.innerHTML = `<p style="color:#c0392b;">Не получилось. Попробуйте ещё раз.</p>`;
-    }
-    document.getElementById('start-mini-game').classList.remove('hidden');
-  }
-
-  // Считалка
-  function generateCounter(difficulty) {
-    const config = { easy: { size: 6, min: 10, max: 30 }, medium: { size: 7, min: 15, max: 40 }, hard: { size: 8, min: 20, max: 60 } };
-    const { size, min, max } = config[difficulty];
-    const totalCells = size * size;
-    const ballCount = Math.floor(Math.random() * (max - min + 1)) + min;
-    const balls = new Array(totalCells).fill(false);
-    let placed = 0;
-    while (placed < ballCount) {
-      const idx = Math.floor(Math.random() * totalCells);
-      if (!balls[idx]) {
-        balls[idx] = true;
-        placed++;
-      }
-    }
-    return { size, balls, ballCount };
-  }
-
-  function startCounter(difficulty) {
-    const config = { easy: { time: 10, reward: 1200 }, medium: { time: 14, reward: 2600 }, hard: { time: 17, reward: 6000 } };
-    const { time, reward } = config[difficulty];
-    const { size, balls, ballCount } = generateCounter(difficulty);
-    miniGames.currentGame = 'counter';
-    miniGames.timeLeft = time;
-    miniGames.reward = reward;
-    miniGames.correctAnswer = ballCount;
-
-    const area = document.getElementById('mini-game-area');
-    area.innerHTML = `<div class="mini-game-field" id="counter-field" style="grid-template-columns: repeat(${size}, 30px);"></div>
-      <p>Сколько красных шариков?</p>
-      <input type="number" id="counter-answer" placeholder="Число">
-      <button id="submit-counter" class="btn primary">Готово</button>`;
-    
-    const field = document.getElementById('counter-field');
-    balls.forEach(isBall => {
-      const cell = document.createElement('div');
-      cell.className = 'mini-game-cell';
-      cell.textContent = isBall ? '🔴' : '';
-      field.appendChild(cell);
-    });
-
-    document.getElementById('submit-counter').addEventListener('click', checkCounterAnswer);
-    startMiniGameTimer(time, () => finishCounter(false));
-  }
-
-  function checkCounterAnswer() {
-    const input = document.getElementById('counter-answer');
-    const answer = parseInt(input.value);
-    if (isNaN(answer)) return;
-    clearInterval(miniGames.timer);
-    if (answer === miniGames.correctAnswer) {
-      gameState.balance += miniGames.reward;
-      saveToStorage();
-      renderAll();
-      document.getElementById('mini-game-area').innerHTML = `<p style="color:#4caf50;">🎉 Верно! +${miniGames.reward} ₽</p>`;
-    } else {
-      document.getElementById('mini-game-area').innerHTML = `<p style="color:#c0392b;">Неверно. Правильный ответ: ${miniGames.correctAnswer}</p>`;
-    }
-    document.getElementById('start-mini-game').classList.remove('hidden');
-  }
-
-  function startMiniGameTimer(seconds, callback) {
-    const area = document.getElementById('mini-game-area');
-    let timerBar = document.createElement('div');
-    timerBar.className = 'timer-bar';
-    timerBar.style.width = '100%';
-    area.prepend(timerBar);
-    miniGames.timer = setInterval(() => {
-      miniGames.timeLeft--;
-      timerBar.style.width = (miniGames.timeLeft / seconds * 100) + '%';
-      if (miniGames.timeLeft <= 0) {
-        clearInterval(miniGames.timer);
-        callback();
+        document.getElementById('booster-timer').classList.add('hidden');
       }
     }, 1000);
   }
 
-  // Обработчики кнопок мини-игр
-  document.getElementById('btn-minigame').addEventListener('click', () => {
-    document.getElementById('mini-game-panel').classList.toggle('hidden');
-    document.getElementById('mini-game-select').classList.remove('hidden');
-    document.getElementById('mini-game-area').innerHTML = '';
-    document.getElementById('mini-game-result').textContent = '';
+  function applyRent() {
+    const rent = Math.floor(gameState.balance * 0.25);
+    gameState.balance = Math.max(0, gameState.balance - rent);
+    saveToStorage();
+    renderAll();
+    playBeep(300, 0.1);
+  }
+
+  // ---------- ПОКУПКИ ----------
+  function buyItem(itemId) {
+    const item = shopItems.find(i => i.id === itemId);
+    if (!item || !item.unlocked) return;
+    if (gameState.balance < item.price) {
+      playBeep(200, 0.15);
+      return;
+    }
+    gameState.balance -= item.price;
+    gameState.warehouse.push(itemId);
+    saveToStorage();
+    renderAll();
+    playBeep(1000, 0.05);
+  }
+
+  function buyBooster(boosterId) {
+    const booster = boosters.find(b => b.id === boosterId);
+    if (!booster) return;
+    if (gameState.balance < booster.price) {
+      playBeep(200, 0.15);
+      return;
+    }
+    if (booster.type === 'permanent' && gameState.boostersPurchased.includes(boosterId)) return;
+    gameState.balance -= booster.price;
+    if (booster.type === 'permanent') {
+      gameState.boostersPurchased.push(boosterId);
+      if (boosterId === 'slot') {
+        gameState.maxShelves = Math.min(7, gameState.maxShelves + 1);
+        while (gameState.shelves.length < gameState.maxShelves) {
+          gameState.shelves.push(null);
+          gameState.shelvesTimers.push(Date.now());
+        }
+      } else if (boosterId === 'discount') {
+        gameState.permanentBonus += 0.1;
+      }
+    } else if (booster.type === 'temp' && boosterId === 'sale') {
+      gameState.incomeMultiplier = 2;
+      gameState.boosterEndTime = Date.now() + booster.duration * 1000;
+      document.getElementById('booster-timer').classList.remove('hidden');
+    }
+    saveToStorage();
+    renderAll();
+    playBeep(800, 0.1);
+  }
+
+  // ---------- УЛУЧШЕНИЯ МАГАЗИНА ----------
+  function renderShopUpgrades() {
+    const list = document.getElementById('upgrades-list');
+    if (!list) return;
+    list.innerHTML = '';
+    shopUpgrades.forEach(upg => {
+      const bought = gameState.shopLevel >= upg.level;
+      const card = document.createElement('div');
+      card.className = 'upgrade-card' + (bought ? ' done' : '');
+      card.innerHTML = `
+        <div>
+          <strong>${upg.name}</strong><br>
+          <small>${upg.desc}</small>
+        </div>
+        <div>
+          ${bought ? '<span style="color:#4caf50;">✅ Куплено</span>' :
+            `<button class="btn primary buy-upgrade" data-level="${upg.level}">${upg.cost.toLocaleString()} ₽</button>`}
+        </div>
+      `;
+      list.appendChild(card);
+    });
+    document.querySelectorAll('.buy-upgrade').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const level = parseInt(e.target.dataset.level);
+        buyUpgrade(level);
+      });
+    });
+  }
+
+  function buyUpgrade(level) {
+    const upg = shopUpgrades.find(u => u.level === level);
+    if (!upg || gameState.shopLevel >= level) return;
+    if (level !== gameState.shopLevel + 1) return;
+    if (gameState.balance < upg.cost) {
+      playBeep(200, 0.15);
+      return;
+    }
+    gameState.balance -= upg.cost;
+    gameState.shopLevel = level;
+    upg.effect();
+    if (level === 2) {
+      while (gameState.shelvesTimers.length < gameState.shelves.length) {
+        gameState.shelvesTimers.push(Date.now());
+      }
+    }
+    saveToStorage();
+    renderAll();
+    renderShopUpgrades();
+    playBeep(1000, 0.1);
+  }
+
+  // ---------- АВТОРИЗАЦИЯ ----------
+  function showAuthFields(mode) {
+    document.getElementById('auth-fields').classList.remove('hidden');
+    document.getElementById('auth-error').textContent = '';
+    document.getElementById('auth-nickname').value = '';
+    document.getElementById('auth-password').value = '';
+    document.getElementById('auth-fields').dataset.mode = mode;
+  }
+
+  document.getElementById('btn-register').addEventListener('click', () => {
+    initAudio();
+    showAuthFields('register');
+  });
+  document.getElementById('btn-login').addEventListener('click', () => {
+    initAudio();
+    showAuthFields('login');
   });
 
-  document.getElementById('close-mini-game').addEventListener('click', () => {
-    document.getElementById('mini-game-panel').classList.add('hidden');
+  document.getElementById('auth-submit').addEventListener('click', () => {
+    initAudio();
+    const nickname = document.getElementById('auth-nickname').value.trim();
+    const password = document.getElementById('auth-password').value;
+    const errorEl = document.getElementById('auth-error');
+    if (!nickname || !password) { errorEl.textContent = 'Заполни все поля'; return; }
+    const mode = document.getElementById('auth-fields').dataset.mode;
+    const storageKey = 'user_' + nickname;
+    if (mode === 'register') {
+      if (localStorage.getItem(storageKey) !== null) {
+        errorEl.textContent = 'Этот никнейм уже занят';
+        playBeep(200, 0.2);
+        return;
+      }
+      const newState = {
+        nickname: nickname,
+        balance: 0,
+        warehouse: ['bread'],
+        shelves: new Array(6).fill(null),
+        maxShelves: 6,
+        permanentBonus: 0,
+        incomeMultiplier: 1,
+        boostersPurchased: [],
+        isCreator: false,
+        shopLevel: 0,
+        baseInterval: 2,
+        boosterEndTime: 0
+      };
+      localStorage.setItem(storageKey, JSON.stringify({ password, gameState: newState }));
+      gameState = { ...newState, shelvesTimers: new Array(6).fill(Date.now()) };
+      saveToStorage();
+      localStorage.setItem('currentUser', nickname);
+      enterGame();
+      playBeep(660, 0.12);
+    } else {
+      const userData = JSON.parse(localStorage.getItem(storageKey) || '{}');
+      if (!userData.password || userData.password !== password) {
+        errorEl.textContent = 'Неверный пароль';
+        playBeep(200, 0.2);
+        return;
+      }
+      gameState = { ...userData.gameState };
+      initShelvesTimers();
+      saveToStorage();
+      localStorage.setItem('currentUser', nickname);
+      enterGame();
+      playBeep(660, 0.12);
+    }
   });
 
-  document.getElementById('start-mini-game').addEventListener('click', () => {
-    const difficulty = document.getElementById('difficulty-select').value;
-    const game = document.querySelector('button.active')?.id; // нужно отслеживать выбор
-    // Упростим: добавим класс active при выборе
-    const selectedGame = document.querySelector('#mini-game-select .btn.active')?.dataset.game;
-    if (!selectedGame) return;
-    document.getElementById('mini-game-area').classList.remove('hidden');
-    document.getElementById('start-mini-game').classList.add('hidden');
-    if (selectedGame === 'arithmetic') startArithmetic(difficulty);
-    else if (selectedGame === 'counter') startCounter(difficulty);
+  function enterGame() {
+    document.getElementById('start-screen').classList.add('hidden');
+    document.getElementById('game-screen').classList.remove('hidden');
+    startGameLoop();
+    renderAll();
+    renderShopUpgrades();
+  }
+
+  // ---------- ВЫХОД ----------
+  document.getElementById('btn-logout').addEventListener('click', () => {
+    const currentUser = localStorage.getItem('currentUser');
+    if (currentUser) {
+      const storageKey = 'user_' + currentUser;
+      const userData = JSON.parse(localStorage.getItem(storageKey) || '{}');
+      userData.gameState = { ...gameState };
+      delete userData.gameState.shelvesTimers;
+      localStorage.setItem(storageKey, JSON.stringify(userData));
+    }
+    clearInterval(incomeInterval);
+    clearInterval(rentInterval);
+    clearInterval(secondTimer);
+    localStorage.removeItem('currentUser');
+    document.getElementById('game-screen').classList.add('hidden');
+    document.getElementById('start-screen').classList.remove('hidden');
+    document.getElementById('auth-fields').classList.add('hidden');
+    playBeep(400, 0.1);
   });
 
-  // Выделение выбранной мини-игры
-  document.getElementById('select-arithmetic').addEventListener('click', function() {
-    this.classList.add('active');
-    document.getElementById('select-counter').classList.remove('active');
-  });
-  document.getElementById('select-counter').addEventListener('click', function() {
-    this.classList.add('active');
-    document.getElementById('select-arithmetic').classList.remove('active');
+  // ---------- СБРОС ----------
+  document.getElementById('btn-reset').addEventListener('click', () => {
+    if (confirm('Точно сбросить ВЕСЬ прогресс? Это необратимо!')) {
+      localStorage.removeItem('hedgehog_game');
+      const currentUser = localStorage.getItem('currentUser');
+      if (currentUser) localStorage.removeItem('user_' + currentUser);
+      location.reload();
+    }
   });
 
-  // ... (остальные обработчики, авторизация, промокод, сброс)
+  // ---------- ВИД МАГАЗИНА ----------
+  document.getElementById('btn-shop-view').addEventListener('click', () => {
+    document.getElementById('shop-upgrade-panel').classList.toggle('hidden');
+    renderShopUpgrades();
+  });
+  document.getElementById('btn-close-shop').addEventListener('click', () => {
+    document.getElementById('shop-upgrade-panel').classList.add('hidden');
+  });
 
-  // При загрузке
+  // ---------- ПРОМОКОД ----------
+  document.getElementById('promo-apply').addEventListener('click', () => {
+    if (document.getElementById('promo-input').value.trim() === 'm9HYnMq1q42U') {
+      gameState.isCreator = true;
+      saveToStorage();
+      renderAll();
+      playBeep(880, 0.2);
+      alert('Поздравляем! Вы стали создателем.');
+    }
+    document.getElementById('promo-input').value = '';
+  });
+
+  // ---------- МИНИ-ИГРЫ ----------
+  const minigameModal = document.getElementById('minigame-modal');
+  const minigameMenu = document.getElementById('minigame-menu');
+  const minigameArea = document.getElementById('minigame-area');
+  const minigameTitle = document.getElementById('minigame-title');
+  const minigameDesc = document.getElementById('minigame-desc');
+  const minigameContent = document.getElementById('minigame-content');
+  const minigameAnswer = document.getElementById('minigame-answer');
+  const minigameSubmit = document.getElementById('minigame-submit');
+  const minigameTimer = document.getElementById('minigame-timer');
+  const minigameTimeLeft = document.getElementById('minigame-time-left');
+  const minigameFeedback = document.getElementById('minigame-feedback');
+  const minigameExit = document.getElementById('minigame-exit');
+  const minigameInputArea = document.getElementById('minigame-input-area');
+
+  let currentMinigame = null;
+  let currentDifficulty = null;
+  let minigameData = null; // для хранения примеров/шариков
+
+  document.getElementById('btn-minigames').addEventListener('click', () => {
+    if (minigameActive) return;
+    minigameModal.classList.remove('hidden');
+    minigameMenu.classList.remove('hidden');
+    minigameArea.classList.add('hidden');
+    minigameTitle.textContent = '🎮 Мини-игры';
+    document.getElementById('minigame-exit').classList.add('hidden');
+  });
+
+  document.getElementById('btn-close-modal').addEventListener('click', () => {
+    if (minigameActive) {
+      endMinigame(false);
+    }
+    minigameModal.classList.add('hidden');
+  });
+
+  // Выбор игры из меню
+  document.querySelectorAll('#minigame-menu [data-game]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const game = e.target.dataset.game;
+      currentMinigame = game;
+      // показать выбор сложности
+      minigameMenu.classList.add('hidden');
+      minigameArea.classList.remove('hidden');
+      if (game === 'arithmetic') {
+        minigameTitle.textContent = '🧮 Арифметика';
+        minigameDesc.textContent = 'Выберите сложность:';
+        minigameContent.innerHTML = `
+          <button class="btn" data-diff="easy">Лёгкий (1000₽)</button>
+          <button class="btn" data-diff="medium">Средний (2100₽)</button>
+          <button class="btn" data-diff="hard">Сложный (5200₽)</button>
+        `;
+        minigameInputArea.classList.add('hidden');
+        minigameTimer.classList.add('hidden');
+        minigameFeedback.textContent = '';
+        document.getElementById('minigame-exit').classList.remove('hidden');
+      } else if (game === 'counter') {
+        minigameTitle.textContent = '🔴 Считалка';
+        minigameDesc.textContent = 'Выберите сложность:';
+        minigameContent.innerHTML = `
+          <button class="btn" data-diff="easy">Лёгкий (1200₽)</button>
+          <button class="btn" data-diff="medium">Средний (2600₽)</button>
+          <button class="btn" data-diff="hard">Сложный (6000₽)</button>
+        `;
+        minigameInputArea.classList.add('hidden');
+        minigameTimer.classList.add('hidden');
+        minigameFeedback.textContent = '';
+        document.getElementById('minigame-exit').classList.remove('hidden');
+      }
+      // обработчики сложности
+      document.querySelectorAll('#minigame-content [data-diff]').forEach(diffBtn => {
+        diffBtn.addEventListener('click', (e) => {
+          const diff = e.target.dataset.diff;
+          startMinigame(currentMinigame, diff);
+        });
+      });
+    });
+  });
+
+  function startMinigame(game, difficulty) {
+    if (minigameActive) return;
+    minigameActive = true;
+    currentDifficulty = difficulty;
+    minigameArea.classList.remove('hidden');
+    minigameContent.innerHTML = '';
+    minigameFeedback.textContent = '';
+    minigameAnswer.value = '';
+    minigameInputArea.classList.remove('hidden');
+    minigameTimer.classList.remove('hidden');
+    document.getElementById('minigame-exit').classList.add('hidden');
+
+    if (game === 'arithmetic') {
+      startArithmetic(difficulty);
+    } else if (game === 'counter') {
+      startCounter(difficulty);
+    }
+  }
+
+  function endMinigame(success, reward = 0) {
+    if (!minigameActive) return;
+    minigameActive = false;
+    if (minigameTimeout) clearTimeout(minigameTimeout);
+    if (minigameTimerInterval) clearInterval(minigameTimerInterval);
+    if (success) {
+      gameState.balance += reward;
+      saveToStorage();
+      renderAll();
+      playBeep(1000, 0.2);
+      alert(`Поздравляем! Вы заработали ${reward.toLocaleString()} ₽`);
+    }
+    // вернуться в меню мини-игр
+    minigameMenu.classList.remove('hidden');
+    minigameArea.classList.add('hidden');
+    minigameInputArea.classList.add('hidden');
+    minigameTimer.classList.add('hidden');
+    document.getElementById('minigame-exit').classList.add('hidden');
+    currentMinigame = null;
+    currentDifficulty = null;
+    minigameData = null;
+  }
+
+  // ---------- АРИФМЕТИКА ----------
+  function startArithmetic(difficulty) {
+    const config = {
+      easy: { time: 16, count: 5, reward: 1000, gen: () => {
+        const a = Math.floor(Math.random() * 9) + 1;
+        const b = Math.floor(Math.random() * 9) + 1;
+        const op = Math.random() < 0.5 ? '+' : '-';
+        let question, answer;
+        if (op === '+') {
+          answer = a + b;
+          question = `${a} + ${b}`;
+        } else {
+          answer = a - b;
+          question = `${a} - ${b}`;
+        }
+        return { question, answer };
+      }},
+      medium: { time: 20, count: 5, reward: 2100, gen: () => {
+        const ops = ['*', '/'];
+        const op = ops[Math.floor(Math.random() * 2)];
+        let a, b, answer;
+        if (op === '*') {
+          a = Math.floor(Math.random() * 9) + 2;
+          b = Math.floor(Math.random() * 9) + 2;
+          answer = a * b;
+        } else {
+          b = Math.floor(Math.random() * 9) + 2;
+          answer = Math.floor(Math.random() * 9) + 2;
+          a = b * answer;
+        }
+        return { question: `${a} ${op} ${b}`, answer };
+      }},
+      hard: { time: 25, count: 5, reward: 5200, gen: () => {
+        const a = Math.floor(Math.random() * 900) + 100;
+        const b = Math.floor(Math.random() * 900) + 100;
+        const op = Math.random() < 0.5 ? '+' : '-';
+        let answer = op === '+' ? a + b : a - b;
+        return { question: `${a} ${op} ${b}`, answer };
+      }}
+    }[difficulty];
+
+    const examples = Array.from({ length: config.count }, () => config.gen());
+    minigameData = { examples, currentIndex: 0, timeLeft: config.time, reward: config.reward };
+    showArithmeticQuestion();
+    startMinigameTimer(config.time, () => endMinigame(false));
+  }
+
+  function showArithmeticQuestion() {
+    const ex = minigameData.examples[minigameData.currentIndex];
+    minigameContent.innerHTML = `<h2>${ex.question} = ?</h2>`;
+    minigameAnswer.value = '';
+    minigameAnswer.focus();
+    minigameFeedback.textContent = `Пример ${minigameData.currentIndex + 1} из ${minigameData.examples.length}`;
+  }
+
+  minigameSubmit.addEventListener('click', () => {
+    if (!minigameActive || currentMinigame !== 'arithmetic') return;
+    const userAnswer = parseFloat(minigameAnswer.value.trim());
+    if (isNaN(userAnswer)) {
+      minigameFeedback.textContent = 'Введите число!';
+      return;
+    }
+    const correct = minigameData.examples[minigameData.currentIndex].answer;
+    if (Math.abs(userAnswer - correct) < 0.001) {
+      playBeep(800, 0.1);
+      minigameData.currentIndex++;
+      if (minigameData.currentIndex >= minigameData.examples.length) {
+        // все примеры решены
+        endMinigame(true, minigameData.reward);
+      } else {
+        showArithmeticQuestion();
+      }
+    } else {
+      playBeep(200, 0.2);
+      minigameFeedback.textContent = 'Неверно, попробуйте ещё';
+      minigameAnswer.value = '';
+    }
+  });
+
+  minigameAnswer.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter' && currentMinigame === 'arithmetic') {
+      minigameSubmit.click();
+    }
+  });
+
+  // ---------- СЧИТАЛКА ----------
+  function startCounter(difficulty) {
+    const config = {
+      easy: { size: 6, minDots: 10, maxDots: 30, time: 10, reward: 1200 },
+      medium: { size: 7, minDots: 15, maxDots: 40, time: 14, reward: 2600 },
+      hard: { size: 8, minDots: 20, maxDots: 60, time: 17, reward: 6000 }
+    }[difficulty];
+
+    const dotCount = Math.floor(Math.random() * (config.maxDots - config.minDots + 1)) + config.minDots;
+    minigameData = { dotCount, timeLeft: config.time, reward: config.reward, size: config.size };
+    renderCounterGrid(config.size, dotCount);
+    minigameTimer.classList.remove('hidden');
+    minigameInputArea.classList.remove('hidden');
+    minigameAnswer.value = '';
+    minigameAnswer.focus();
+    minigameFeedback.textContent = '';
+    startMinigameTimer(config.time, () => endMinigame(false));
+  }
+
+  function renderCounterGrid(size, dotCount) {
+    const totalCells = size * size;
+    const cells = new Array(totalCells).fill(false);
+    // расставляем точки случайно
+    let placed = 0;
+    while (placed < dotCount) {
+      const idx = Math.floor(Math.random() * totalCells);
+      if (!cells[idx]) {
+        cells[idx] = true;
+        placed++;
+      }
+    }
+    let html = `<div class="minigame-grid" style="grid-template-columns: repeat(${size}, 1fr);">`;
+    cells.forEach(isDot => {
+      html += `<div class="minigame-cell ${isDot ? 'red-dot' : 'empty-dot'}"></div>`;
+    });
+    html += '</div>';
+    minigameContent.innerHTML = html;
+  }
+
+  minigameSubmit.addEventListener('click', () => {
+    if (!minigameActive || currentMinigame !== 'counter') return;
+    const userAnswer = parseInt(minigameAnswer.value.trim());
+    if (isNaN(userAnswer)) {
+      minigameFeedback.textContent = 'Введите число!';
+      return;
+    }
+    if (userAnswer === minigameData.dotCount) {
+      endMinigame(true, minigameData.reward);
+    } else {
+      playBeep(200, 0.2);
+      minigameFeedback.textContent = 'Неверно, попробуйте ещё';
+      minigameAnswer.value = '';
+    }
+  });
+
+  minigameAnswer.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter' && currentMinigame === 'counter') {
+      minigameSubmit.click();
+    }
+  });
+
+  function startMinigameTimer(seconds, callback) {
+    let timeLeft = seconds;
+    minigameTimeLeft.textContent = timeLeft;
+    if (minigameTimerInterval) clearInterval(minigameTimerInterval);
+    minigameTimerInterval = setInterval(() => {
+      timeLeft--;
+      minigameTimeLeft.textContent = timeLeft;
+      if (timeLeft <= 0) {
+        clearInterval(minigameTimerInterval);
+        callback();
+      }
+    }, 1000);
+    minigameTimeout = setTimeout(() => {
+      if (minigameActive) {
+        clearInterval(minigameTimerInterval);
+        callback();
+      }
+    }, seconds * 1000);
+  }
+
+  // Кнопка выхода из активной мини-игры
+  document.getElementById('minigame-exit').addEventListener('click', () => {
+    if (minigameActive) {
+      endMinigame(false);
+    } else {
+      // просто вернуться в меню
+      minigameMenu.classList.remove('hidden');
+      minigameArea.classList.add('hidden');
+    }
+  });
+
+  // ---------- АВТОВХОД ----------
   window.addEventListener('DOMContentLoaded', () => {
-    // ... (автовход)
-    // Установим активную мини-игру по умолчанию
-    document.getElementById('select-arithmetic').classList.add('active');
-    document.getElementById('select-arithmetic').dataset.game = 'arithmetic';
-    document.getElementById('select-counter').dataset.game = 'counter';
+    const currentUser = localStorage.getItem('currentUser');
+    if (currentUser) {
+      const userData = JSON.parse(localStorage.getItem('user_' + currentUser) || '{}');
+      if (userData.gameState) {
+        gameState = { ...userData.gameState };
+        initShelvesTimers();
+        enterGame();
+        return;
+      }
+    }
+    document.getElementById('auth-fields').classList.add('hidden');
   });
 </script>
 </body>
