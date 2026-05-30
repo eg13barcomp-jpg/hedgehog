@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ёжик-миллионер 🦔</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1a1e2b;
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      user-select: none;
+    }
+    #app {
+      width: 100%;
+      max-width: 500px;
+      background: #252a36;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .screen { display: block; }
+    .hidden { display: none !important; }
+
+    h1, h2, h3 { color: #ffd966; text-align: center; margin-bottom: 10px; }
+    .btn {
+      background: #3b4252;
+      border: none;
+      color: #eee;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.2s;
+      margin: 5px;
+    }
+    .btn:hover { background: #4c5568; }
+    .btn:active { transform: scale(0.96); }
+    .btn.primary { background: #ffb347; color: #1a1e2b; font-weight: bold; }
+    .btn.primary:hover { background: #ffa01c; }
+    .btn.danger { background: #d94f4f; }
+    .btn.danger:hover { background: #c03939; }
+
+    .input-group {
+      margin: 10px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    input {
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #3b4252;
+      background: #1e222d;
+      color: #eee;
+      font-size: 1rem;
+      outline: none;
+    }
+    .flex-row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .balance { font-size: 1.5rem; font-weight: bold; color: #f0c674; }
+    .nickname { color: #b48ead; }
+    .creator .nickname { color: gold !important; font-weight: bold; }
+
+    .shelves {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      background: #1e222d;
+      padding: 10px;
+      border-radius: 15px;
+      margin-bottom: 15px;
+    }
+    .shelf-slot {
+      aspect-ratio: 1;
+      background: #2e3440;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 2rem;
+      transition: 0.1s;
+      border: 2px solid transparent;
+    }
+    .shelf-slot.occupied { border-color: #5e81ac; background: #3b4252; }
+    .shelf-slot:hover { background: #434c5e; }
+
+    .warehouse {
+      background: #1e222d;
+      border-radius: 15px;
+      padding: 10px;
+      margin-bottom: 15px;
+    }
+    .warehouse-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      max-height: 150px;
+      overflow-y: auto;
+    }
+    .warehouse-item {
+      background: #2e3440;
+      border-radius: 10px;
+      padding: 8px 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      border: 2px solid transparent;
+      transition: 0.1s;
+    }
+    .warehouse-item:hover { border-color: #5e81ac; background: #3b4252; }
+
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .shop-card {
+      background: #1e222d;
+      border-radius: 12px;
+      padding: 8px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    .shop-card .emoji { font-size: 1.8rem; }
+    .boosters-panel {
+      margin-top: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .leaderboard { max-height: 70vh; overflow-y: auto; }
+    .leaderboard-entry {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px;
+      border-bottom: 1px solid #3b4252;
+    }
+    .leaderboard-entry.me { background: #2e3440; font-weight: bold; }
+    .tab-buttons { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; }
+
+    .promo-area {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #252a36;
+      padding: 10px;
+      border-radius: 10px;
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      opacity: 0.8;
+    }
+    .promo-area input { width: 100px; }
+  </style>
+</head>
+<body>
+<div id="app">
+  <!-- Экран старта -->
+  <div id="start-screen" class="screen">
+    <h1>Ёжик-миллионер 🦔</h1>
+    <div class="flex-row">
+      <button id="btn-register" class="btn primary">Регистрация</button>
+      <button id="btn-login" class="btn">Вход</button>
+    </div>
+    <!-- Поля ввода (скрыты изначально) -->
+    <div id="auth-fields" class="hidden">
+      <div class="input-group">
+        <label>Никнейм</label>
+        <input type="text" id="auth-nickname" placeholder="Твой ник">
+      </div>
+      <div class="input-group">
+        <label>Пароль</label>
+        <input type="password" id="auth-password" placeholder="Придумай пароль">
+      </div>
+      <button id="auth-submit" class="btn primary">Продолжить</button>
+      <p id="auth-error" style="color: #d94f4f; margin-top: 5px;"></p>
+    </div>
+  </div>
+
+  <!-- Экран игры -->
+  <div id="game-screen" class="screen hidden">
+    <div class="top-bar">
+      <div>
+        <span class="nickname" id="player-nick"></span>
+        <span id="creator-badge" style="color:gold; margin-left:5px;"></span>
+      </div>
+      <div class="balance" id="balance-display">0 ₽</div>
+    </div>
+
+    <h3>🧺 Полки</h3>
+    <div class="shelves" id="shelves-container"></div>
+
+    <h3>📦 Склад</h3>
+    <div class="warehouse">
+      <div class="warehouse-list" id="warehouse-container"></div>
+    </div>
+
+    <h3>🛒 Магазин</h3>
+    <div class="shop-grid" id="shop-container"></div>
+
+    <h3>✨ Бустеры</h3>
+    <div class="boosters-panel" id="boosters-container"></div>
+
+    <div class="flex-row" style="margin-top: 15px;">
+      <button id="btn-rating" class="btn">🏆 Рейтинг</button>
+      <button id="btn-logout" class="btn danger">🚪 Выйти</button>
+    </div>
+  </div>
+
+  <!-- Экран рейтинга -->
+  <div id="rating-screen" class="screen hidden">
+    <h2>🏆 Рейтинг</h2>
+    <div class="tab-buttons">
+      <button id="tab-global" class="btn primary">Все игроки</button>
+      <button id="tab-creators" class="btn">Создатели</button>
+    </div>
+    <div class="leaderboard" id="leaderboard-list"></div>
+    <p style="text-align:center; margin-top:10px;">Ваше место: <span id="my-rank">—</span></p>
+    <div class="flex-row">
+      <button id="btn-back-to-game" class="btn">← Назад в игру</button>
+    </div>
+  </div>
+</div>
+
+<!-- Блок промокода (всегда виден) -->
+<div class="promo-area">
+  <input type="text" id="promo-input" placeholder="Промокод">
+  <button id="promo-apply" class="btn primary">OK</button>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+<script>
+  // ---------- КОНФИГУРАЦИЯ FIREBASE (ЗАМЕНИ НА СВОЮ) ----------
+  // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyASOe-BI30X2K37CAFeZfyB76KSqXer8FQ",
+  authDomain: "hedgehog-millioner.firebaseapp.com",
+  databaseURL: "https://hedgehog-millioner-default-rtdb.firebaseio.com",
+  projectId: "hedgehog-millioner",
+  storageBucket: "hedgehog-millioner.firebasestorage.app",
+  messagingSenderId: "1084751424392",
+  appId: "1:1084751424392:web:738216d031bcf227f0a83d"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);  };
+
+  // ---------- ИНИЦИАЛИЗАЦИЯ FIREBASE ----------
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.database();
+
+  // ---------- ЗВУКИ (Web Audio API) ----------
+  let audioCtx = null;
+  function initAudio() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  function playBeep(freq = 800, duration = 0.1) {
+    if (!audioCtx) return;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'square';
+    osc.frequency.value = freq;
+    gain.gain.value = 0.1;
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + duration);
+  }
+
+  // ---------- ДАННЫЕ ТОВАРОВ ----------
+  const shopItems = [
+    { id: 'bread', name: 'Хлеб', emoji: '🍞', price: 0, income: 10 },
+    { id: 'corn', name: 'Кукуруза', emoji: '🌽', price: 200, income: 20 },
+    { id: 'chupa', name: 'Чупа-чупс', emoji: '🍭', price: 900, income: 30 },
+    { id: 'marmelade', name: 'Мармелад', emoji: '🍬', price: 1100, income: 50 },
+    { id: 'watermelon', name: 'Арбуз', emoji: '🍉', price: 2000, income: 140 },
+    { id: 'chips', name: 'Чипсы', emoji: '🥔', price: 2800, income: 220 },
+    { id: 'crackers', name: 'Сухарики', emoji: '🥨', price: 5000, income: 440 },
+    { id: 'toy', name: 'Игрушка', emoji: '🧸', price: 6600, income: 600 },
+    { id: 'clothes', name: 'Одежда', emoji: '👕', price: 10600, income: 1000 },
+    { id: 'book', name: 'Книга', emoji: '📚', price: 18600, income: 1800 },
+    { id: 'candybox', name: 'Коробка сладостей', emoji: '🎁', price: 24600, income: 2400 },
+    { id: 'toaster', name: 'Тостер', emoji: '🔥', price: 38600, income: 3800 },
+    { id: 'kettle', name: 'Чайник', emoji: '☕', price: 50600, income: 5000 },
+    { id: 'yh', name: 'Ых', emoji: '🌀', price: 66666, income: 0.1 }
+  ];
+
+  const boosters = [
+    { id: 'sale', name: '🔥 Особая акция', desc: 'x2 доход на 60 сек', price: 12000, type: 'temp', cooldown: 60, effect: (game) => { game.incomeMultiplier = 2; setTimeout(() => { game.incomeMultiplier = 1; }, 60000); } },
+    { id: 'slot', name: '📢 Распродажа', desc: '+1 слот на полке', price: 8200, type: 'permanent', max: 1, apply: (game) => { if (game.maxShelves < 7) game.maxShelves = 7; } },
+    { id: 'discount', name: '🎯 Скидка 10%', desc: '+10% к доходу навсегда', price: 12000, type: 'permanent', max: 1, apply: (game) => { game.permanentBonus += 0.1; } },
+    { id: 'temp_contract', name: '📉 Врем. договор', desc: '-10% от баланса', price: 3000, type: 'temp', cooldown: 150, effect: (game) => { game.balance = Math.floor(game.balance * 0.9); } }
+  ];
+
+  // ---------- ИГРОВОЕ СОСТОЯНИЕ ----------
+  const gameState = {
+    uid: null,
+    nickname: '',
+    balance: 0,
+    warehouse: [],          // массив id товаров
+    shelves: [],            // массив id товаров на полках (длина = maxShelves)
+    maxShelves: 6,
+    permanentBonus: 0,
+    incomeMultiplier: 1,
+    boostersPurchased: [],  // id купленных постоянных бустеров
+    isCreator: false,
+    lastSaveTime: 0
+  };
+
+  let userRef = null;
+  let incomeInterval = null;
+  let rentInterval = null;
+
+  // ---------- ФУНКЦИИ РЕНДЕРИНГА ИНТЕРФЕЙСА ----------
+  function renderShelves() {
+    const container = document.getElementById('shelves-container');
+    if (!container) return;
+    container.innerHTML = '';
+    for (let i = 0; i < gameState.maxShelves; i++) {
+      const slot = document.createElement('div');
+      slot.className = 'shelf-slot';
+      const itemId = gameState.shelves[i];
+      if (itemId) {
+        const item = shopItems.find(it => it.id === itemId);
+        slot.classList.add('occupied');
+        slot.innerHTML = item ? item.emoji : '❓';
+        slot.title = item ? item.name : '';
+      } else {
+        slot.innerHTML = '+';
+      }
+      slot.addEventListener('click', () => {
+        if (itemId) {
+          // убрать с полки в склад
+          gameState.shelves[i] = null;
+          gameState.warehouse.push(itemId);
+          saveGame();
+          renderAll();
+          playBeep(400, 0.05);
+        }
+      });
+      container.appendChild(slot);
+    }
+  }
+
+  function renderWarehouse() {
+    const container = document.getElementById('warehouse-container');
+    if (!container) return;
+    container.innerHTML = '';
+    if (gameState.warehouse.length === 0) {
+      container.innerHTML = '<span style="color:#888">Пусто</span>';
+      return;
+    }
+    gameState.warehouse.forEach((itemId, index) => {
+      const item = shopItems.find(it => it.id === itemId);
+      const div = document.createElement('div');
+      div.className = 'warehouse-item';
+      div.innerHTML = `${item?.emoji || '📦'} ${item?.name || itemId}`;
+      div.addEventListener('click', () => {
+        // поставить на первую свободную полку
+        const freeSlot = gameState.shelves.findIndex(s => s === null);
+        if (freeSlot !== -1) {
+          gameState.shelves[freeSlot] = itemId;
+          gameState.warehouse.splice(index, 1);
+          saveGame();
+          renderAll();
+          playBeep(600, 0.08);
+        }
+      });
+      container.appendChild(div);
+    });
+  }
+
+  function renderShop() {
+    const container = document.getElementById('shop-container');
+    if (!container) return;
+    container.innerHTML = '';
+    shopItems.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'shop-card';
+      card.innerHTML = `
+        <div class="emoji">${item.emoji}</div>
+        <div><strong>${item.name}</strong></div>
+        <div>💰 ${item.price} ₽</div>
+        <div>📈 ${item.income} ₽/с</div>
+        <button class="btn buy-btn" data-id="${item.id}">Купить</button>
+      `;
+      container.appendChild(card);
+    });
+    document.querySelectorAll('.buy-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const id = e.target.dataset.id;
+        buyItem(id);
+      });
+    });
+  }
+
+  function renderBoosters() {
+    const container = document.getElementById('boosters-container');
+    if (!container) return;
+    container.innerHTML = '';
+    boosters.forEach(b => {
+      const btn = document.createElement('button');
+      btn.className = 'btn';
+      btn.textContent = `${b.name} (${b.price}₽)`;
+      btn.title = b.desc;
+      btn.addEventListener('click', () => buyBooster(b.id));
+      container.appendChild(btn);
+    });
+  }
+
+  function updateBalanceDisplay() {
+    const el = document.getElementById('balance-display');
+    if (el) el.textContent = Math.floor(gameState.balance).toLocaleString() + ' ₽';
+  }
+
+  function renderAll() {
+    renderShelves();
+    renderWarehouse();
+    renderShop();
+    renderBoosters();
+    updateBalanceDisplay();
+    document.getElementById('player-nick').textContent = gameState.nickname;
+    if (gameState.isCreator) {
+      document.getElementById('creator-badge').textContent = '⭐';
+    } else {
+      document.getElementById('creator-badge').textContent = '';
+    }
+  }
+
+  // ---------- МЕХАНИКИ ПОКУПОК ----------
+  function buyItem(itemId) {
+    const item = shopItems.find(i => i.id === itemId);
+    if (!item) return;
+    if (gameState.balance < item.price) {
+      playBeep(200, 0.15);
+      return;
+    }
+    gameState.balance -= item.price;
+    gameState.warehouse.push(itemId);
+    saveGame();
+    renderAll();
+    playBeep(1000, 0.05);
+  }
+
+  function buyBooster(boosterId) {
+    const booster = boosters.find(b => b.id === boosterId);
+    if (!booster) return;
+    if (gameState.balance < booster.price) {
+      playBeep(200, 0.15);
+      return;
+    }
+    // проверка лимитов для постоянных
+    if (booster.type === 'permanent' && gameState.boostersPurchased.includes(boosterId)) {
+      playBeep(200, 0.15);
+      return;
+    }
+    gameState.balance -= booster.price;
+    if (booster.type === 'permanent') {
+      gameState.boostersPurchased.push(boosterId);
+      if (booster.apply) booster.apply(gameState);
+    } else if (booster.type === 'temp') {
+      if (booster.effect) booster.effect(gameState);
+    }
+    saveGame();
+    renderAll();
+    playBeep(800, 0.1);
+  }
+
+  // ---------- АРЕНДА И ДОХОД ----------
+  function calculateIncome() {
+    let total = 0;
+    gameState.shelves.forEach(itemId => {
+      if (!itemId) return;
+      const item = shopItems.find(i => i.id === itemId);
+      if (item) total += item.income;
+    });
+    return total * (1 + gameState.permanentBonus) * gameState.incomeMultiplier;
+  }
+
+  function applyRent() {
+    const rent = Math.floor(gameState.balance * 0.25);
+    gameState.balance -= rent;
+    if (gameState.balance < 0) gameState.balance = 0;
+    saveGame();
+    renderAll();
+    playBeep(300, 0.1);
+  }
+
+  function startGameLoop() {
+    if (incomeInterval) clearInterval(incomeInterval);
+    if (rentInterval) clearInterval(rentInterval);
+    incomeInterval = setInterval(() => {
+      gameState.balance += calculateIncome();
+      updateBalanceDisplay();
+      // автосохранение каждые 5 секунд
+      if (Date.now() - gameState.lastSaveTime > 5000) saveGame();
+    }, 1000);
+    rentInterval = setInterval(() => {
+      applyRent();
+    }, 60000);
+  }
+
+  // ---------- РАБОТА С БАЗОЙ ДАННЫХ ----------
+  function saveGame() {
+    if (!userRef) return;
+    const data = {
+      nickname: gameState.nickname,
+      balance: Math.floor(gameState.balance),
+      warehouse: gameState.warehouse,
+      shelves: gameState.shelves,
+      maxShelves: gameState.maxShelves,
+      permanentBonus: gameState.permanentBonus,
+      incomeMultiplier: gameState.incomeMultiplier,
+      boostersPurchased: gameState.boostersPurchased,
+      isCreator: gameState.isCreator
+    };
+    userRef.set(data).catch(e => console.error('Save error', e));
+    gameState.lastSaveTime = Date.now();
+  }
+
+  function loadGame() {
+    return new Promise((resolve, reject) => {
+      userRef.once('value').then(snapshot => {
+        const data = snapshot.val();
+        if (data) {
+          gameState.nickname = data.nickname || '';
+          gameState.balance = data.balance || 0;
+          gameState.warehouse = data.warehouse || [];
+          gameState.shelves = data.shelves || [];
+          gameState.maxShelves = data.maxShelves || 6;
+          gameState.permanentBonus = data.permanentBonus || 0;
+          gameState.incomeMultiplier = data.incomeMultiplier || 1;
+          gameState.boostersPurchased = data.boostersPurchased || [];
+          gameState.isCreator = data.isCreator || false;
+        } else {
+          // Новый игрок – даём стартовый хлеб
+          gameState.warehouse = ['bread'];
+          gameState.shelves = new Array(6).fill(null);
+          gameState.maxShelves = 6;
+          gameState.permanentBonus = 0;
+          gameState.incomeMultiplier = 1;
+          gameState.boostersPurchased = [];
+          gameState.isCreator = false;
+          saveGame();
+        }
+        // гарантируем длину массива полок
+        while (gameState.shelves.length < gameState.maxShelves) gameState.shelves.push(null);
+        if (gameState.shelves.length > gameState.maxShelves) gameState.shelves = gameState.shelves.slice(0, gameState.maxShelves);
+        resolve();
+      }).catch(reject);
+    });
+  }
+
+  // ---------- АУТЕНТИФИКАЦИЯ ----------
+  let authMode = ''; // 'register' или 'login'
+
+  function showAuthFields(mode) {
+    authMode = mode;
+    document.getElementById('auth-fields').classList.remove('hidden');
+    document.getElementById('auth-error').textContent = '';
+    document.getElementById('auth-nickname').value = '';
+    document.getElementById('auth-password').value = '';
+  }
+
+  document.getElementById('btn-register').addEventListener('click', () => {
+    initAudio();
+    showAuthFields('register');
+  });
+  document.getElementById('btn-login').addEventListener('click', () => {
+    initAudio();
+    showAuthFields('login');
+  });
+
+  document.getElementById('auth-submit').addEventListener('click', async () => {
+    initAudio();
+    const nickname = document.getElementById('auth-nickname').value.trim();
+    const password = document.getElementById('auth-password').value;
+    const errorEl = document.getElementById('auth-error');
+    if (!nickname || !password) {
+      errorEl.textContent = 'Заполни все поля';
+      return;
+    }
+    const email = nickname + '@hedgehog.game';
+    try {
+      if (authMode === 'register') {
+        const cred = await auth.createUserWithEmailAndPassword(email, password);
+        gameState.uid = cred.user.uid;
+        gameState.nickname = nickname;
+        userRef = db.ref('users/' + gameState.uid);
+        // инициализация нового игрока
+        gameState.warehouse = ['bread'];
+        gameState.shelves = new Array(6).fill(null);
+        gameState.balance = 0;
+        gameState.maxShelves = 6;
+        gameState.permanentBonus = 0;
+        gameState.incomeMultiplier = 1;
+        gameState.boostersPurchased = [];
+        gameState.isCreator = false;
+        await saveGame();
+      } else {
+        const cred = await auth.signInWithEmailAndPassword(email, password);
+        gameState.uid = cred.user.uid;
+        userRef = db.ref('users/' + gameState.uid);
+        await loadGame();
+      }
+      // переключить на игровой экран
+      document.getElementById('start-screen').classList.add('hidden');
+      document.getElementById('game-screen').classList.remove('hidden');
+      document.getElementById('rating-screen').classList.add('hidden');
+      startGameLoop();
+      renderAll();
+      playBeep(660, 0.12);
+    } catch (e) {
+      console.error(e);
+      if (e.code === 'auth/email-already-in-use') {
+        errorEl.textContent = 'Этот никнейм уже занят';
+      } else if (e.code === 'auth/user-not-found' || e.code === 'auth/wrong-password') {
+        errorEl.textContent = 'Неверный никнейм или пароль';
+      } else {
+        errorEl.textContent = 'Ошибка: ' + e.message;
+      }
+      playBeep(200, 0.2);
+    }
+  });
+
+  // ---------- КНОПКИ В ИГРЕ ----------
+  document.getElementById('btn-logout').addEventListener('click', () => {
+    if (incomeInterval) clearInterval(incomeInterval);
+    if (rentInterval) clearInterval(rentInterval);
+    auth.signOut();
+    gameState.uid = null;
+    userRef = null;
+    document.getElementById('game-screen').classList.add('hidden');
+    document.getElementById('rating-screen').classList.add('hidden');
+    document.getElementById('start-screen').classList.remove('hidden');
+    document.getElementById('auth-fields').classList.add('hidden');
+    playBeep(400, 0.1);
+  });
+
+  document.getElementById('btn-rating').addEventListener('click', () => {
+    document.getElementById('game-screen').classList.add('hidden');
+    document.getElementById('rating-screen').classList.remove('hidden');
+    showLeaderboard('global');
+    playBeep(500, 0.05);
+  });
+
+  document.getElementById('btn-back-to-game').addEventListener('click', () => {
+    document.getElementById('rating-screen').classList.add('hidden');
+    document.getElementById('game-screen').classList.remove('hidden');
+    playBeep(500, 0.05);
+  });
+
+  document.getElementById('tab-global').addEventListener('click', () => showLeaderboard('global'));
+  document.getElementById('tab-creators').addEventListener('click', () => showLeaderboard('creators'));
+
+  // ---------- РЕЙТИНГ ----------
+  function showLeaderboard(mode) {
+    const list = document.getElementById('leaderboard-list');
+    const myRankEl = document.getElementById('my-rank');
+    list.innerHTML = 'Загрузка...';
+    db.ref('users').once('value').then(snapshot => {
+      const users = [];
+      snapshot.forEach(child => {
+        const data = child.val();
+        if (data && data.balance !== undefined) {
+          users.push({ uid: child.key, nickname: data.nickname || 'Аноним', balance: data.balance, isCreator: data.isCreator || false });
+        }
+      });
+      // фильтр для создателей
+      let filtered = mode === 'creators' ? users.filter(u => u.isCreator) : users;
+      filtered.sort((a, b) => b.balance - a.balance);
+      list.innerHTML = '';
+      filtered.forEach((user, index) => {
+        const entry = document.createElement('div');
+        entry.className = 'leaderboard-entry' + (user.uid === gameState.uid ? ' me' : '');
+        entry.innerHTML = `<span>${index + 1}. ${user.nickname} ${user.isCreator ? '⭐' : ''}</span> <span>${Math.floor(user.balance).toLocaleString()} ₽</span>`;
+        list.appendChild(entry);
+      });
+      // найти место текущего игрока
+      const allSorted = [...users].sort((a, b) => b.balance - a.balance);
+      const myIndex = allSorted.findIndex(u => u.uid === gameState.uid);
+      myRankEl.textContent = myIndex >= 0 ? myIndex + 1 : '—';
+    }).catch(err => {
+      list.innerHTML = 'Ошибка загрузки';
+    });
+  }
+
+  // ---------- ПРОМОКОД ----------
+  document.getElementById('promo-apply').addEventListener('click', () => {
+    if (!userRef) return;
+    const code = document.getElementById('promo-input').value.trim();
+    if (code === 'm9HYnMq1q42U') {
+      gameState.isCreator = true;
+      saveGame();
+      renderAll();
+      playBeep(880, 0.2);
+      alert('Поздравляем! Вы стали создателем. Ваш ник теперь золотой.');
+    } else {
+      playBeep(200, 0.15);
+    }
+    document.getElementById('promo-input').value = '';
+  });
+
+  // ---------- ПЕРВИЧНАЯ ПРОВЕРКА АВТОРИЗАЦИИ ----------
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      // уже залогинен – загружаем игру
+      gameState.uid = user.uid;
+      userRef = db.ref('users/' + gameState.uid);
+      loadGame().then(() => {
+        document.getElementById('start-screen').classList.add('hidden');
+        document.getElementById('game-screen').classList.remove('hidden');
+        document.getElementById('rating-screen').classList.add('hidden');
+        startGameLoop();
+        renderAll();
+        playBeep(660, 0.12);
+      });
+    }
+  });
+
+  // первоначальное скрытие полей
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('auth-fields').classList.add('hidden');
+  });
+</script>
+</body>
+</html>
